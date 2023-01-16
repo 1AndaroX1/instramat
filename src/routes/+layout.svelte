@@ -64,7 +64,7 @@
 			<a href="/">
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-24 invert" />
 			</a>
-			<div class="flex  container justify-between mx-auto px-2 gap-4 py-2 items-center">
+			<div class="flex  container mx-auto px-2 gap-4 py-2 items-center">
 				<p><a href="/">О нас</a></p>
 				<p><a href="/">Контакты</a></p>
 				<div class="flex gap-4">
