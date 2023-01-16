@@ -58,4 +58,16 @@
 
 <slot />
 
-<footer />
+<footer class=" bg-main text-zinc-50">
+	<div class="container mx-auto flex flex-row  font-semibold px-4">
+		<div class="flex flex-row container justify-between mx-auto px-2 gap-4 py-2 items-center">
+			<a href="/">
+				<img src="../picture/Лого.svg" alt="instramat.by" class="min-w-full w-24" />
+			</a>
+			<div class="flex  container  mx-auto px-2 gap-4 py-2 items-center">
+				<p><a href="/">О нас</a></p>
+				<p><a href="/">Контакты</a></p>
+			</div>
+		</div>
+	</div>
+</footer>
