@@ -13,7 +13,7 @@
 	<nav>
 		<div class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center">
 			<a href="/">
-				<img src="../picture/Лого.svg" alt="instramat.by" class="min-w-full w-64" />
+				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-64" />
 			</a>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
@@ -60,13 +60,19 @@
 
 <footer class=" bg-main text-zinc-50">
 	<div class="container mx-auto flex flex-row  font-semibold px-4">
-		<div class="flex flex-row container justify-between mx-auto px-2 gap-4 py-2 items-center">
+		<div class="flex flex-row container justify-between mx-auto gap-4 py-2 items-center">
 			<a href="/">
-				<img src="../picture/Лого.svg" alt="instramat.by" class="min-w-full w-24" />
+				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-24" />
 			</a>
-			<div class="flex  container  mx-auto px-2 gap-4 py-2 items-center">
+			<div class="flex  container justify-between mx-auto px-2 gap-4 py-2 items-center">
 				<p><a href="/">О нас</a></p>
 				<p><a href="/">Контакты</a></p>
+				<div class="flex">
+					<a href="/"
+						><img src="../picture/TelegramLogo.svg" alt="telegram" class="h-6 w-6 mx-4" /></a
+					>
+					<a href="/"><img src="../picture/InstagramLogo.svg" alt="instagram" class="h-6 w-6" /></a>
+				</div>
 			</div>
 		</div>
 	</div>
