@@ -23,6 +23,6 @@
 }
 @layer base {
 	body {
-		@apply py-20;
+		@apply pt-20;
 	}
 }

@@ -21,7 +21,9 @@
 	<div />
 </section>
 
-<section class="flex flex-wrap flex-row flex-start container mx-auto mt-8 px-8">
+<section
+	class="flex flex-wrap flex-row flex-start container mx-auto mt-8 px-8 flex-1 whitespace-pre-line"
+>
 	<div class="grid grid-cols-2 gap-3 items-stretch mb-6 w-full">
 		<!-- карточка товара -->
 		{#each products as product}
