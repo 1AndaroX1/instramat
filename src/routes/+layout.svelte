@@ -1,36 +1,25 @@
 <script>
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
-	let visible = false;
+	let catalogMenuVisible = false;
 	let y;
+	let contactBarVisible = true;
 	function handleClick() {
-		alert('хуй');
-		visible = !visible;
+		catalogMenuVisible = !catalogMenuVisible;
+		contactBarVisible = !contactBarVisible;
 	}
 </script>
 
 <svelte:window bind:scrollY={y} />
 
-{#if visible}
-	<!-- <div class="w-full bg-white" in:fly={{ x: -200, duration: 1000 }} out:fade>текст</div> -->
-	<div class="w-full bg-white" in:fly={{ x: -200, duration: 1000 }} out:fade>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-		<a href="/">сука</a>
-	</div>
-{/if}
-
-<header>
+{#if contactBarVisible}
 	<div
-		class="bg-zinc-400 w-full uppercase will-change-transform opacity-none relative top-0"
-		style="opacity: {1 - Math.max(0, y / 2)}"
+		class="bg-zinc-400 w-full uppercase will-change-transform opacity-none "
+		in:fly={{
+			y: -100,
+			duration: 1000
+		}}
+		out:fade
 	>
 		<div class="container mx-auto flex flex-row justify-between font-semibold px-4">
 			<p>+375 ** ***-**-**</p>
@@ -38,10 +27,11 @@
 			<p>Inst: instramat</p>
 		</div>
 	</div>
+{/if}
+
+<header class="sticky h-fit top-0 ">
 	<nav>
-		<div
-			class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center fixed top-0 left-0 right-0 bg-white"
-		>
+		<div class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center bg-white">
 			<a href="/">
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-64" />
 			</a>
@@ -64,7 +54,7 @@
 					placeholder="поиск по каталогу..."
 					class="py-4 outline-none ml-6 w-full"
 				/>
-				<button type="submit" class="p-3  bg-main rounded-full mr-1 text-zinc-50"
+				<button type="submit" class="p-3 bg-main rounded-full mr-1 text-zinc-50"
 					><svg class="h-6 w-6" viewBox="0 0 24 24">
 						<path
 							fill="currentColor"
@@ -86,6 +76,14 @@
 			</button>
 		</div>
 	</nav>
+
+	{#if catalogMenuVisible}
+		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
+			<div class="container flex flex-row mx-auto">
+				<a href="/" class="">сука</a>
+			</div>
+		</div>
+	{/if}
 </header>
 
 <slot />

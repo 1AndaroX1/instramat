@@ -6,7 +6,7 @@
 
 	function createRandomProducts() {
 		return {
-			photo: faker.image.technics(640, 480, true),
+			photo: faker.image.technics(640, 480),
 			name: faker.commerce.productName(),
 			price: faker.finance.amount()
 		};
