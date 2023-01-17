@@ -1,8 +1,11 @@
 <script>
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
-	let visible = false;
+	let visible = true;
 	let y;
+	function handleClick() {
+		alert('хуй');
+	}
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -27,7 +30,7 @@
 			</a>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
-				on:click={visible}
+				on:click={handleClick}
 			>
 				<div class="flex flex-col gap-1">
 					<span class="h-0.5 w-6 rounded-sm bg-zinc-50" />
@@ -35,10 +38,22 @@
 					<span class="h-0.5 w-6 rounded-sm bg-zinc-50" />
 				</div>
 				<span>Каталог</span>
-				{#if visible}
-					<div box class="w-full bg-white" in:fly={{ y: 200, duration: 1000 }} out:fade>текст</div>
-				{/if}
 			</button>
+			{#if visible}
+				<!-- <div class="w-full bg-white" in:fly={{ x: -200, duration: 1000 }} out:fade>текст</div> -->
+				<div>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+					<a href="/">сука</a>
+				</div>
+			{/if}
 
 			<div class="border rounded-full relative flex items-center w-full">
 				<input
