@@ -1,9 +1,17 @@
 <script>
 	import '../styles.css';
+	import { fade, fly } from 'svelte/transition';
+	let visible = false;
+	let y;
 </script>
 
+<svelte:window bind:scrollY={y} />
+
 <header>
-	<div class="bg-zinc-400 w-full">
+	<div
+		class="bg-zinc-400 w-full uppercase will-change-transform opacity-none relative top-0"
+		style="opacity: {1 - Math.max(0, y / 2)}"
+	>
 		<div class="container mx-auto flex flex-row justify-between font-semibold px-4">
 			<p>+375 ** ***-**-**</p>
 			<p>tg: @instramat</p>
@@ -11,12 +19,15 @@
 		</div>
 	</div>
 	<nav>
-		<div class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center">
+		<div
+			class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center fixed top-0 left-0 right-0 bg-white"
+		>
 			<a href="/">
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-64" />
 			</a>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
+				on:click={visible}
 			>
 				<div class="flex flex-col gap-1">
 					<span class="h-0.5 w-6 rounded-sm bg-zinc-50" />
@@ -24,7 +35,11 @@
 					<span class="h-0.5 w-6 rounded-sm bg-zinc-50" />
 				</div>
 				<span>Каталог</span>
+				{#if visible}
+					<div box class="w-full bg-white" in:fly={{ y: 200, duration: 1000 }} out:fade>текст</div>
+				{/if}
 			</button>
+
 			<div class="border rounded-full relative flex items-center w-full">
 				<input
 					type="search"
@@ -58,7 +73,7 @@
 
 <slot />
 
-<footer class=" bg-main text-zinc-50">
+<footer class="bg-main text-zinc-50">
 	<div class="container mx-auto flex flex-row  font-semibold px-4">
 		<div class="flex flex-row container justify-between mx-auto gap-4 py-2 items-center">
 			<a href="/">

@@ -22,7 +22,7 @@
 </section>
 
 <section class="flex flex-wrap flex-row flex-start container mx-auto mt-8 px-8">
-	<div class="grid grid-cols-4 gap-3 items-stretch mb-6 w-full">
+	<div class="grid grid-cols-2 gap-3 items-stretch mb-6 w-full">
 		<!-- карточка товара -->
 		{#each products as product}
 			<div class="flex flex-initia flex-col p-3 shadow-md gap-3 rounded-md">
