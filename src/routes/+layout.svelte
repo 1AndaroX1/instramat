@@ -1,9 +1,14 @@
 <script>
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
+	import { cart } from '../cartStore';
+	import { faker } from '@faker-js/faker';
+
+	console.log($cart);
+
 	let y;
 	let catalogMenuVisible = false;
-	let cartFormVisible = false;
+	let cartFormVisible = true;
 	let activeCategory = '';
 	function catalogClick() {
 		catalogMenuVisible = !catalogMenuVisible;
@@ -12,6 +17,10 @@
 	function cartClick() {
 		cartFormVisible = !cartFormVisible;
 		catalogMenuVisible = false;
+	}
+
+	function removeFromCart(product) {
+		$cart = $cart.filter((val) => val.id != product.id);
 	}
 </script>
 
@@ -120,9 +129,42 @@
 	{/if}
 	<!-- функция корзины -->
 	{#if cartFormVisible}
-		<div class="h-60 w-screen absolute right-0 bg" in:fly={{ x: 200, duration: 1000 }} out:fade>
-			<div class="container justify-end flex flex-row mx-auto px-4 h-full bg-fuchsia-50">
-				<div class="flex flex-col h-full pr-2 gap-2 w-40 bg-slate-700">хуй</div>
+		<div
+			class="h-96 w-screen absolute right-0 bg pointer-events-none"
+			in:fly={{ x: 200, duration: 1000 }}
+			out:fade
+		>
+			<div class="container justify-end flex flex-row mx-auto px-4 h-full ">
+				<div
+					class="flex flex-col h-full gap-4 bg-white p-6 rounded-lg shadow-lg ring-1 ring-zinc-200 w-96 overflow-auto pointer-events-auto"
+				>
+					<p class="text-xl leading-6 font-semibold">Корзина</p>
+					{#each $cart as product}
+						<div class="flex flex-row gap-4 w-full items-center">
+							<button on:click={() => removeFromCart(product)}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="w-6 text-zinc-600 hover:text-zinc-800 cursor-pointer"
+									viewBox="0 0 24 24"
+									><path
+										fill="currentColor"
+										d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12M8 9h8v10H8V9m7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5Z"
+									/></svg
+								>
+							</button>
+
+							<img src={faker.image.technics(640, 480)} class="w-24 rounded-md" alt="Товар" />
+
+							<div class="flex flex-col gap-1">
+								<p class="font-semibold">{product.name}</p>
+								<p>{product.price} руб. / сут</p>
+							</div>
+						</div>
+					{/each}
+					<div>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</div>
+
+					<button class="btn-main w-full" disabled={$cart.length === 0}>Оформить</button>
+				</div>
 			</div>
 		</div>
 	{/if}

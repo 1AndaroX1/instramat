@@ -1,20 +1,38 @@
 <script>
 	import { faker } from '@faker-js/faker';
 	import { each } from 'svelte/internal';
+	import { cart } from '../cartStore';
 
 	const products = [];
 
 	function createRandomProducts() {
 		return {
+			id: faker.datatype.uuid(),
 			photo: faker.image.technics(640, 480),
 			name: faker.commerce.productName(),
-			price: faker.finance.amount()
+			price: parseFloat(faker.commerce.price())
 		};
 	}
 
 	Array.from({ length: 8 }).forEach(() => {
 		products.push(createRandomProducts());
 	});
+
+	function addToCart(product) {
+		if ($cart.some((val) => val.id === product.id)) {
+			alert('Товар уже добавлен в корзину');
+			return;
+		}
+
+		cart.set([
+			...$cart,
+			{
+				id: product.id,
+				name: product.name,
+				price: product.price
+			}
+		]);
+	}
 </script>
 
 <section>
@@ -35,8 +53,7 @@
 				</div>
 				<div class="text">{product.name}</div>
 				<div>{product.price} р. / сут</div>
-				<button
-					class="font-semibold bg-main text-zinc-50 rounded-full px-4 cursor-pointer py-2 flex self-start"
+				<button class="btn-main flex self-start" on:click={() => addToCart(product)}
 					>В корзину</button
 				>
 			</div>
