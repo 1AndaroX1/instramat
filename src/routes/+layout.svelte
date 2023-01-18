@@ -8,7 +8,7 @@
 
 	let y;
 	let catalogMenuVisible = false;
-	let cartFormVisible = true;
+	let cartFormVisible = false;
 	let activeCategory = '';
 	function catalogClick() {
 		catalogMenuVisible = !catalogMenuVisible;
@@ -139,6 +139,9 @@
 					class="flex flex-col h-full gap-4 bg-white p-6 rounded-lg shadow-lg ring-1 ring-zinc-200 w-96 overflow-auto pointer-events-auto"
 				>
 					<p class="text-xl leading-6 font-semibold">Корзина</p>
+					{#if $cart.length === 0}
+						<p class="">В корзине пусто. товарчик Добавь пж ((((</p>
+					{/if}
 					{#each $cart as product}
 						<div class="flex flex-row gap-4 w-full items-center">
 							<button on:click={() => removeFromCart(product)}>
@@ -161,9 +164,10 @@
 							</div>
 						</div>
 					{/each}
-					<div>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</div>
-
-					<button class="btn-main w-full" disabled={$cart.length === 0}>Оформить</button>
+					<div class="flex flex-col mt-auto gap-4">
+						<p>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</p>
+						<button class="btn-main w-full" disabled={$cart.length === 0}>Оформить</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -172,7 +176,7 @@
 
 <slot />
 
-<footer class="bg-main text-zinc-50">
+<footer class="bg-main text-zinc-50 mt-auto">
 	<div class="container mx-auto flex flex-row font-semibold px-4 justify-center">
 		<div class="flex flex-row gap-4 py-2 items-center">
 			<a href="/">
@@ -181,7 +185,7 @@
 			<p><a href="/about">О нас</a></p>
 			<p><a href="/">Контакты</a></p>
 			<div class="flex gap-4">
-				<a href="/">
+				<a href="https://t.me/+sjCj1jSe7iMzOTMy">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6"
 						><path
 							d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"

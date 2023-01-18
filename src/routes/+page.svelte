@@ -14,7 +14,7 @@
 		};
 	}
 
-	Array.from({ length: 8 }).forEach(() => {
+	Array.from({ length: 16 }).forEach(() => {
 		products.push(createRandomProducts());
 	});
 
@@ -42,7 +42,7 @@
 <section
 	class="flex flex-wrap flex-row flex-start container mx-auto mt-8 px-8 flex-1 whitespace-pre-line"
 >
-	<div class="grid grid-cols-2 gap-3 items-stretch mb-6 w-full">
+	<div class="grid grid-cols-4 gap-3 items-stretch mb-6 w-full">
 		<!-- карточка товара -->
 		{#each products as product}
 			<div class="flex flex-col p-3 shadow-md gap-3 rounded-md">
@@ -60,25 +60,3 @@
 		{/each}
 	</div>
 </section>
-
-<!-- <section class="flex flex-wrap flex-row flex-start container mx-auto mt-8 px-8">
-	<div class="flex flex-wrap flex-row gap-3 items-stretch mb-6">
-		<div class="flex flex-initia flex-col w-64 p-3 shadow-md gap-3 rounded-md">
-			<div class="flex flex-1 min-h-min">
-				<a href="a">
-					<img
-						src="../picture/makita-df457dwe.jpg"
-						alt="none"
-						class="items-center rounded-sm w-full"
-					/>
-				</a>
-			</div>
-			<div class="text">Шуруповерт-дрель Makita-df457dwe</div>
-			<div>25 р. / сут</div>
-			<button
-				class="font-semibold bg-main text-zinc-50 rounded-full px-4 cursor-pointer py-2 flex self-start"
-				>В корзину</button
-			>
-		</div>
-	</div>
-</section> -->
