@@ -27,7 +27,7 @@
 	<div class="grid grid-cols-2 gap-3 items-stretch mb-6 w-full">
 		<!-- карточка товара -->
 		{#each products as product}
-			<div class="flex flex-initia flex-col p-3 shadow-md gap-3 rounded-md">
+			<div class="flex flex-col p-3 shadow-md gap-3 rounded-md">
 				<div class="flex flex-1 min-h-min">
 					<a href="a">
 						<img src={product.photo} alt="none" class="items-center rounded-sm w-full" />

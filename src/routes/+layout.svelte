@@ -1,35 +1,36 @@
 <script>
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
-	import { each } from 'svelte/internal';
-	let catalogMenuVisible = false;
 	let y;
-	let contactBarVisible = true;
-	const categories = [];
-	function handleClick() {
+	let catalogMenuVisible = false;
+	let cartFormVisible = false;
+	let activeCategory = '';
+	function catalogClick() {
 		catalogMenuVisible = !catalogMenuVisible;
-		contactBarVisible = !contactBarVisible;
+		cartFormVisible = false;
+	}
+	function cartClick() {
+		cartFormVisible = !cartFormVisible;
+		catalogMenuVisible = false;
 	}
 </script>
 
 <svelte:window bind:scrollY={y} />
-
-{#if contactBarVisible}
-	<div
-		class="bg-zinc-400 w-full uppercase will-change-transform opacity-none "
-		in:fly={{
-			y: -100,
-			duration: 1000
-		}}
-		out:fade
-	>
-		<div class="container mx-auto flex flex-row justify-between font-semibold px-4">
-			<p>+375 ** ***-**-**</p>
-			<p>tg: @instramat</p>
-			<p>Inst: instramat</p>
-		</div>
+<!-- анимация блока контактов -->
+<div
+	class="bg-zinc-400 w-full uppercase will-change-transform opacity-none "
+	in:fly={{
+		y: -100,
+		duration: 1000
+	}}
+	out:fade
+>
+	<div class="container mx-auto flex flex-row justify-between font-semibold px-4">
+		<p>+375 ** ***-**-**</p>
+		<p>tg: @instramat</p>
+		<p>Inst: instramat</p>
 	</div>
-{/if}
+</div>
 
 <header class="sticky h-fit top-0 ">
 	<nav>
@@ -39,7 +40,7 @@
 			</a>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
-				on:click={handleClick}
+				on:click={catalogClick}
 			>
 				<div class="flex flex-col gap-1">
 					<span class="h-0.5 w-6 rounded-sm bg-zinc-50" />
@@ -67,6 +68,7 @@
 			</div>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer  py-4"
+				on:click={cartClick}
 			>
 				<svg class="class=h-6 w-6" viewBox="0 0 24 24">
 					<path
@@ -78,20 +80,49 @@
 			</button>
 		</div>
 	</nav>
-
+	<!-- функция каталога -->
 	{#if catalogMenuVisible}
 		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
-			<div class="container flex flex-col mx-auto">
-				<div class="flex flex-col gap-5 ml-8">
-					<a href="/" class="">Инструменты</a>
-					<a href="/" class="">Материалы</a>
-					{#each categories as cat}
-						<div class="flex flex-col gap-5 ml-8">
-							<a href="/" class="">Инструменты</a>
-							<a href="/" class="">Материалы</a>
-						</div>
-					{/each}
+			<div class="container flex flex-row mx-auto px-4 h-full">
+				<div class="flex flex-col border-r-2 h-full pr-2 gap-2 w-40">
+					<a
+						href="/"
+						class={activeCategory === 'инструменты' ? ' font-semibold text-main' : ''}
+						on:mouseenter={() => (activeCategory = 'инструменты')}>Инструменты</a
+					>
+					<a
+						href="/"
+						class={activeCategory === 'материалы' ? 'font-semibold text-main' : ''}
+						on:mouseenter={() => (activeCategory = 'материалы')}>Материалы</a
+					>
 				</div>
+				<div class="pl-2">
+					{#if activeCategory === 'инструменты'}
+						<div class="flex flex-col gap-2">
+							<p class="font-semibold">Для сада</p>
+							<a href="/" class="">Бензо</a>
+							<a href="/" class="">Электро</a>
+							<a href="/" class="">Ручные</a>
+						</div>
+					{/if}
+					{#if activeCategory === 'материалы'}
+						<div class="flex flex-col gap-2">
+							<p class="font-semibold">Отделочные</p>
+							<a href="/" class="">Для отделки фасадов</a>
+							<a href="/" class="">Для отделки стен</a>
+							<a href="/" class="">Для отделки потолков</a>
+							<a href="/" class="">Для отделки стен и потолков</a>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/if}
+	<!-- функция корзины -->
+	{#if cartFormVisible}
+		<div class="h-60 w-screen absolute right-0 bg" in:fly={{ x: 200, duration: 1000 }} out:fade>
+			<div class="container justify-end flex flex-row mx-auto px-4 h-full bg-fuchsia-50">
+				<div class="flex flex-col h-full pr-2 gap-2 w-40 bg-slate-700">хуй</div>
 			</div>
 		</div>
 	{/if}
@@ -105,7 +136,7 @@
 			<a href="/">
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-24 invert" />
 			</a>
-			<p><a href="src\routes\info\+layout.svelte">О нас</a></p>
+			<p><a href="/about">О нас</a></p>
 			<p><a href="/">Контакты</a></p>
 			<div class="flex gap-4">
 				<a href="/">
