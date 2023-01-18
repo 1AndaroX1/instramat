@@ -1,9 +1,11 @@
 <script>
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
+	import { each } from 'svelte/internal';
 	let catalogMenuVisible = false;
 	let y;
 	let contactBarVisible = true;
+	const categories = [];
 	function handleClick() {
 		catalogMenuVisible = !catalogMenuVisible;
 		contactBarVisible = !contactBarVisible;
@@ -79,8 +81,17 @@
 
 	{#if catalogMenuVisible}
 		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
-			<div class="container flex flex-row mx-auto">
-				<a href="/" class="">сука</a>
+			<div class="container flex flex-col mx-auto">
+				<div class="flex flex-col gap-5 ml-8">
+					<a href="/" class="">Инструменты</a>
+					<a href="/" class="">Материалы</a>
+					{#each categories as cat}
+						<div class="flex flex-col gap-5 ml-8">
+							<a href="/" class="">Инструменты</a>
+							<a href="/" class="">Материалы</a>
+						</div>
+					{/each}
+				</div>
 			</div>
 		</div>
 	{/if}
