@@ -1,5 +1,5 @@
 <script>
-	import '../styles.css';
+	import 'src/styles.css';
 	import { fade, fly } from 'svelte/transition';
 	import { each } from 'svelte/internal';
 	let catalogMenuVisible = false;
