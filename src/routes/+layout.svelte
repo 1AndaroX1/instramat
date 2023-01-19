@@ -176,6 +176,7 @@
 
 <slot />
 
+<!-- футер -->
 <footer class="bg-main text-zinc-50 mt-auto">
 	<div class="container mx-auto flex flex-row font-semibold px-4 justify-center">
 		<div class="flex flex-row gap-4 py-2 items-center">
@@ -183,7 +184,7 @@
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-24 invert" />
 			</a>
 			<p><a href="/about">О нас</a></p>
-			<p><a href="/">Контакты</a></p>
+			<p><a href="/contact">Контакты</a></p>
 			<div class="flex gap-4">
 				<a href="https://t.me/+sjCj1jSe7iMzOTMy">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6"
