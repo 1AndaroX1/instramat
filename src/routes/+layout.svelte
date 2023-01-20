@@ -183,6 +183,7 @@
 
 <slot />
 
+<!-- футер -->
 <footer class="bg-main text-zinc-50 mt-auto">
 	<div class="container mx-auto flex flex-row font-semibold px-4 justify-center">
 		<div class="flex flex-row gap-4 py-2 items-center">

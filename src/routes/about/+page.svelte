@@ -1,4 +1,4 @@
-<section class="mx-auto container flex gap-6 flex-col">
+<section class="mx-auto container flex gap-6 flex-col pb-4">
 	<div>
 		<img src="./picture/abovePic1.png" alt="" class="w-full h-full" />
 	</div>

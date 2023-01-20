@@ -7,7 +7,11 @@
 	<div
 		class="flex flex-col text-4xl shadow-md rounded-md p-4 bg-main text-white m-10 justify-center items-center"
 	>
+<<<<<<< HEAD
 		+375 ***--**
+=======
+		+375 ** ***-**-**
+>>>>>>> 7df6d5e4ee01faf360a2660b72b628909755afdb
 	</div>
 	<div class="flex flex-row text-xl shadow-md rounded-md p-4 bg-main text-white">
 		<img src="./picture/qrCode.jpg" alt="https://t.me/+sjCj1jSe7iMzOTMy" class="w-40 h-40" />
