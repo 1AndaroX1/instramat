@@ -18,6 +18,10 @@
 		cartFormVisible = !cartFormVisible;
 		catalogMenuVisible = false;
 	}
+	function cartConfirmClick() {
+		catalogMenuVisible = false;
+		cartFormVisible = false;
+	}
 
 	function removeFromCart(product) {
 		$cart = $cart.filter((val) => val.id != product.id);
@@ -166,7 +170,10 @@
 					{/each}
 					<div class="flex flex-col mt-auto gap-4">
 						<p>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</p>
-						<button class="btn-main w-full" disabled={$cart.length === 0}>Оформить</button>
+						<button class="btn-main w-full" disabled={$cart.length === 0}>
+							<a href="/cart">Оформить</a>
+							on:click={cartConfirmClick}
+						</button>
 					</div>
 				</div>
 			</div>
@@ -183,7 +190,7 @@
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-24 invert" />
 			</a>
 			<p><a href="/about">О нас</a></p>
-			<p><a href="/">Контакты</a></p>
+			<p><a href="/contact">Контакты</a></p>
 			<div class="flex gap-4">
 				<a href="https://t.me/+sjCj1jSe7iMzOTMy">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6"
