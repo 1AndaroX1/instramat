@@ -31,7 +31,7 @@
 <svelte:window bind:scrollY={y} />
 <!-- анимация блока контактов -->
 <div
-	class="bg-zinc-400 w-full uppercase will-change-transform opacity-none "
+	class="bg-zinc-400 w-full uppercase will-change-transform opacity-none"
 	in:fly={{
 		y: -100,
 		duration: 1000
@@ -45,7 +45,7 @@
 	</div>
 </div>
 
-<header class="sticky h-fit top-0 ">
+<header class="sticky h-fit top-0">
 	<nav>
 		<div class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center bg-white">
 			<a href="/">
@@ -80,7 +80,7 @@
 				>
 			</div>
 			<button
-				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer  py-4"
+				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
 				on:click={cartClick}
 			>
 				<svg class="class=h-6 w-6" viewBox="0 0 24 24">
@@ -138,7 +138,7 @@
 			in:fly={{ x: 200, duration: 1000 }}
 			out:fade
 		>
-			<div class="container justify-end flex flex-row mx-auto px-4 h-full ">
+			<div class="container justify-end flex flex-row mx-auto px-4 h-full">
 				<div
 					class="flex flex-col h-full gap-4 bg-white p-6 rounded-lg shadow-lg ring-1 ring-zinc-200 w-96 overflow-auto pointer-events-auto"
 				>
@@ -160,7 +160,7 @@
 								>
 							</button>
 
-							<img src={faker.image.technics(640, 480)} class="w-24 rounded-md" alt="Товар" />
+							<img src={product.picture + '?thumb=300x300f'} class="w-24 rounded-md" alt="Товар" />
 
 							<div class="flex flex-col gap-1">
 								<p class="font-semibold">{product.name}</p>
@@ -170,9 +170,12 @@
 					{/each}
 					<div class="flex flex-col mt-auto gap-4">
 						<p>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</p>
-						<button class="btn-main w-full" disabled={$cart.length === 0}>
-							<a href="/cart">Оформить</a>
+						<button
+							class="btn-main w-full"
+							disabled={$cart.length === 0}
 							on:click={cartConfirmClick}
+						>
+							<a href="/cart"> Оформить</a>
 						</button>
 					</div>
 				</div>
