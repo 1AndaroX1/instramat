@@ -112,10 +112,9 @@
 				<div class="pl-2">
 					{#if activeCategory === 'инструменты'}
 						<div class="flex flex-col gap-2">
-							<p class="font-semibold">Для сада</p>
-							<a href="/" class="">Бензо</a>
-							<a href="/" class="">Электро</a>
-							<a href="/" class="">Ручные</a>
+							<p class="font-semibold">Инструменты</p>
+							<a href="/" class="">Электроинструмент</a>
+							<a href="/" class="">Садовая техника</a>
 						</div>
 					{/if}
 					{#if activeCategory === 'материалы'}

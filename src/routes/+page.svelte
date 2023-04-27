@@ -1,6 +1,7 @@
 <script>
 	import { each } from 'svelte/internal';
 	import { cart } from '../cartStore';
+	import { goto } from '$app/navigation';
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -19,6 +20,7 @@
 >
 	<div class="grid grid-cols-4 gap-3 items-stretch mb-6 w-full">
 		<!-- карточка товара -->
+
 		{#each data.result as product}
 			<div class="flex flex-col p-3 shadow-md gap-3 rounded-md">
 				<div class="flex flex-1 min-h-min">
@@ -41,30 +43,29 @@
 
 	<!-- Пагинация -->
 
-	<div class="flex gap-2">
-		{#if data.page > 1}
-			<a class="btn-main" href="/?page={data.page - 1}"> Назад </a>
-		{/if}
+	<div class="flex gap-2 flex-1 container flex-wrap flex-row m-3 justify-center">
+		<button
+			class={data.page == 1
+				? 'pointer-events-none hover:bg-zinc-200 cursor-not-allowed bg-zinc-200 btn-main'
+				: 'btn-main'}
+			on:click={goto(`/?page=${data.page - 1}`)}
+			disabled={data.page == 1}
+		>
+			Назад
+		</button>
 
-		<!-- {#each Array(data.totalPages).slice(data.page - 3, data.page + 2) as _, i}
-			<a
-				class={data.page - 3 + i + 1 === data.page ? 'btn-main-active' : 'btn-main'}
-				href="/?page={data.page - 3 + i + 1}"
-			>
-				{data.page - 3 + i + 1}
-			</a>
-		{/each} -->
-		<!-- 
-		{#each Array(9) as _, i}
-			{#if i + data.page - 2 < data.totalPages && i + data.page - 2 > 0}
-				<a href="/?page={data.page + i - 2}">{data.page + i - 2}</a>
-			{/if}
-		{/each} -->
+		<div class="flex self-center w-3 mx-3">
+			{data.page}
+		</div>
 
-		<div>{data.page}</div>
-
-		{#if data.page < data.totalPages}
-			<a class="btn-main" href="/?page={data.page + 1}"> Вперед </a>
-		{/if}
+		<button
+			class={data.page == data.totalPages
+				? 'pointer-events-none hover:bg-zinc-200 cursor-not-allowed bg-zinc-200 btn-main'
+				: 'btn-main'}
+			on:click={goto(`/?page=${data.page + 1}`)}
+			disabled={data.page == data.totalPages}
+		>
+			Вперед
+		</button>
 	</div>
 </section>

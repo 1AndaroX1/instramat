@@ -18,7 +18,7 @@ export async function load({ locals, url }) {
 			};
 		}),
 		totalItems: result.totalItems,
-		totalPages: 200,
+		totalPages: 5,
 		page
 	};
 }
