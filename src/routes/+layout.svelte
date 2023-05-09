@@ -163,12 +163,12 @@
 
 							<div class="flex flex-col gap-1">
 								<p class="font-semibold">{product.name}</p>
-								<p>{product.price} руб. / сут</p>
+								<p>{product.price} руб.</p>
 							</div>
 						</div>
 					{/each}
 					<div class="flex flex-col mt-auto gap-4">
-						<p>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</p>
+						<p>{$cart.reduce((total, el) => total + el.price, 0)} руб.</p>
 						<button
 							class="btn-main w-full"
 							disabled={$cart.length === 0}
