@@ -2,14 +2,17 @@
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
 	import { cart } from '../cartStore';
-	import { faker } from '@faker-js/faker';
+	export let data;
+
+	console.log(data.types);
 
 	console.log($cart);
 
 	let y;
 	let catalogMenuVisible = false;
 	let cartFormVisible = false;
-	let activeCategory = '';
+	let activeCategory = {};
+	let activeSubCategory = {};
 	function catalogClick() {
 		catalogMenuVisible = !catalogMenuVisible;
 		cartFormVisible = false;
@@ -63,10 +66,12 @@
 				<span>Каталог</span>
 			</button>
 
-			<div class="border rounded-full relative flex items-center w-full">
+			<!-- Поиск -->
+
+			<form action="/catalog" class="border rounded-full relative flex items-center w-full">
 				<input
 					type="search"
-					name="searchField"
+					name="search"
 					placeholder="поиск по каталогу..."
 					class="py-4 outline-none ml-6 w-full"
 				/>
@@ -78,7 +83,7 @@
 						/>
 					</svg></button
 				>
-			</div>
+			</form>
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
 				on:click={cartClick}
@@ -97,35 +102,45 @@
 	{#if catalogMenuVisible}
 		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
 			<div class="container flex flex-row mx-auto px-4 h-full">
+				<!-- категории -->
 				<div class="flex flex-col border-r-2 h-full pr-2 gap-2 w-40">
-					<a
-						href="/"
-						class={activeCategory === 'инструменты' ? ' font-semibold text-main' : ''}
-						on:mouseenter={() => (activeCategory = 'инструменты')}>Инструменты</a
-					>
-					<a
-						href="/"
-						class={activeCategory === 'материалы' ? 'font-semibold text-main' : ''}
-						on:mouseenter={() => (activeCategory = 'материалы')}>Материалы</a
-					>
+					{#each data.categories as category}
+						<a
+							href="/catalog?category={category.slug}"
+							class={activeCategory.slug === category.slug ? ' font-semibold text-main' : ''}
+							on:mouseenter={() => {
+								activeCategory = category;
+								activeSubCategory = {};
+							}}>{category.title}</a
+						>
+					{/each}
 				</div>
+				<!-- подкатегории -->
 				<div class="pl-2">
-					{#if activeCategory === 'инструменты'}
-						<div class="flex flex-col gap-2">
-							<p class="font-semibold">Инструменты</p>
-							<a href="/" class="">Электроинструмент</a>
-							<a href="/" class="">Садовая техника</a>
-						</div>
-					{/if}
-					{#if activeCategory === 'материалы'}
-						<div class="flex flex-col gap-2">
-							<p class="font-semibold">Отделочные</p>
-							<a href="/" class="">Для отделки фасадов</a>
-							<a href="/" class="">Для отделки стен</a>
-							<a href="/" class="">Для отделки потолков</a>
-							<a href="/" class="">Для отделки стен и потолков</a>
-						</div>
-					{/if}
+					<div class="flex flex-col gap-2">
+						{#if activeCategory.title}
+							<p class="font-semibold">{activeCategory.title}</p>
+							{#each data.subCategories.filter((el) => el.category.slug === activeCategory.slug) as subCategory}
+								<a
+									href="/catalog?sub-category={subCategory.slug}"
+									class=""
+									on:mouseenter={() => (activeSubCategory = subCategory)}
+									>{subCategory.title}
+								</a>
+							{/each}
+						{/if}
+					</div>
+				</div>
+				<!-- типЫ -->
+				<div class="pl-2">
+					<div class="flex flex-col gap-2">
+						{#if activeSubCategory.title}
+							<p class="font-semibold">{activeSubCategory.title}</p>
+							{#each data.types.filter((el) => el.subCategory.slug === activeSubCategory.slug) as type}
+								<a href="/catalog?type={type.slug}" class="">{type.title}</a>
+							{/each}
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -163,16 +178,18 @@
 
 							<div class="flex flex-col gap-1">
 								<p class="font-semibold">{product.name}</p>
-								<p>{product.price} руб. / сут</p>
+								<p>{product.price} руб.</p>
 							</div>
 						</div>
 					{/each}
 					<div class="flex flex-col mt-auto gap-4">
-						<p>{$cart.reduce((total, el) => total + el.price, 0)} р. / сут</p>
+						<p>{$cart.reduce((total, el) => total + el.price, 0)} руб.</p>
 						<button
-							class="btn-main w-full"
-							disabled={$cart.length === 0}
+							class={$cart.length === 0
+								? 'pointer-events-none hover:bg-zinc-200 cursor-not-allowed bg-zinc-200 btn-main'
+								: 'btn-main w-full'}
 							on:click={cartConfirmClick}
+							disabled={$cart.length === 0}
 						>
 							<a href="/cart"> Оформить</a>
 						</button>
@@ -183,7 +200,7 @@
 	{/if}
 </header>
 
-<slot />
+<div><slot /></div>
 
 <!-- футер -->
 <footer class="bg-main text-zinc-50 mt-auto">
