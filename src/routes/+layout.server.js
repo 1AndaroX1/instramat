@@ -1,7 +1,6 @@
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ locals }) {
 	const categories = await locals.pb.collection('categories').getFullList({});
-	console.log(categories);
 	const subCategories = await locals.pb
 		.collection('subCategories')
 		.getFullList({ expand: 'category' });

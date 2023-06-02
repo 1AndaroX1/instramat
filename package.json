@@ -13,6 +13,7 @@
 		"@faker-js/faker": "^7.6.0",
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
+		"@tailwindcss/forms": "^0.5.3",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -27,6 +28,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dayjs": "^1.11.7",
+		"fuse.js": "^6.6.2",
+		"meilisearch": "^0.32.4",
 		"pocketbase": "^0.14.0"
 	}
 }

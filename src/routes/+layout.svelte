@@ -4,15 +4,12 @@
 	import { cart } from '../cartStore';
 	export let data;
 
-	console.log(data.types);
-
-	console.log($cart);
-
 	let y;
 	let catalogMenuVisible = false;
 	let cartFormVisible = false;
 	let activeCategory = {};
 	let activeSubCategory = {};
+
 	function catalogClick() {
 		catalogMenuVisible = !catalogMenuVisible;
 		cartFormVisible = false;
@@ -25,7 +22,6 @@
 		catalogMenuVisible = false;
 		cartFormVisible = false;
 	}
-
 	function removeFromCart(product) {
 		$cart = $cart.filter((val) => val.id != product.id);
 	}
@@ -73,7 +69,7 @@
 					type="search"
 					name="search"
 					placeholder="поиск по каталогу..."
-					class="py-4 outline-none ml-6 w-full"
+					class="py-4 outline-none ml-6 w-full border-none focus:ring-0"
 				/>
 				<button type="submit" class="p-3 bg-main rounded-full mr-1 text-zinc-50"
 					><svg class="h-6 w-6" viewBox="0 0 24 24">
@@ -98,6 +94,7 @@
 			</button>
 		</div>
 	</nav>
+
 	<!-- функция каталога -->
 	{#if catalogMenuVisible}
 		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
@@ -115,9 +112,10 @@
 						>
 					{/each}
 				</div>
+
 				<!-- подкатегории -->
 				<div class="pl-2">
-					<div class="flex flex-col gap-2">
+					<div class="flex flex-col gap-2 pr-4 border-r-2 h-full">
 						{#if activeCategory.title}
 							<p class="font-semibold">{activeCategory.title}</p>
 							{#each data.subCategories.filter((el) => el.category.slug === activeCategory.slug) as subCategory}
@@ -131,9 +129,10 @@
 						{/if}
 					</div>
 				</div>
+
 				<!-- типЫ -->
 				<div class="pl-2">
-					<div class="flex flex-col gap-2">
+					<div class="flex flex-col gap-2 pl-2 h-full">
 						{#if activeSubCategory.title}
 							<p class="font-semibold">{activeSubCategory.title}</p>
 							{#each data.types.filter((el) => el.subCategory.slug === activeSubCategory.slug) as type}
@@ -145,6 +144,7 @@
 			</div>
 		</div>
 	{/if}
+
 	<!-- функция корзины -->
 	{#if cartFormVisible}
 		<div
@@ -158,7 +158,7 @@
 				>
 					<p class="text-xl leading-6 font-semibold">Корзина</p>
 					{#if $cart.length === 0}
-						<p class="">В корзине пусто. товарчик Добавь пж ((((</p>
+						<p class="">В корзине пусто</p>
 					{/if}
 					{#each $cart as product}
 						<div class="flex flex-row gap-4 w-full items-center">
@@ -178,12 +178,26 @@
 
 							<div class="flex flex-col gap-1">
 								<p class="font-semibold">{product.name}</p>
-								<p>{product.price} руб.</p>
+								<div class="text-lg">
+									{#if product.discount > 0}
+										<span class=" font-semibold text-rose-600">
+											{product.price - product.discount}
+										</span>
+										<span class="line-through text-zinc-500 text-base">
+											{product.price}
+										</span>
+									{:else}
+										<span>
+											{product.price}
+										</span>
+									{/if}
+									<span>{product.isRentable ? 'р. / сут' : 'р.'}</span>
+								</div>
 							</div>
 						</div>
 					{/each}
 					<div class="flex flex-col mt-auto gap-4">
-						<p>{$cart.reduce((total, el) => total + el.price, 0)} руб.</p>
+						<p>{$cart.reduce((total, el) => total + el.price - el.discount, 0)} р.</p>
 						<button
 							class={$cart.length === 0
 								? 'pointer-events-none hover:bg-zinc-200 cursor-not-allowed bg-zinc-200 btn-main'

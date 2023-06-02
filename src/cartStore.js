@@ -14,5 +14,4 @@ export const cart = writable(savedCart);
 if (browser)
 	cart.subscribe((val) => {
 		localStorage.setItem('cart', JSON.stringify(val));
-		console.log(val);
 	});

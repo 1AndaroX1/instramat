@@ -2,6 +2,7 @@
 	import '../../styles.css';
 	import { fade, fly } from 'svelte/transition';
 	import { cart } from '../../cartStore';
+	import dayjs from 'dayjs';
 
 	let cartConfirmForm = false;
 
@@ -33,8 +34,38 @@
 
 					<div class="flex flex-col gap-1 w-full">
 						<p class="font-semibold">{product.name}</p>
-						<p>{product.price} руб. / сут</p>
+						<div class="text-2xl">
+							{#if product.discount > 0}
+								<span class=" font-semibold text-rose-600">
+									{product.price - product.discount}
+								</span>
+								<span class="line-through text-zinc-500 text-xl">
+									{product.price}
+								</span>
+							{:else}
+								<span>
+									{product.price}
+								</span>
+							{/if}
+							<span>{product.isRentable ? 'р. / сут' : 'р.'}</span>
+						</div>
 					</div>
+					<!-- выбор даты -->
+					<div class="justify-center flex flex-col gap-1">
+						<input
+							type="date"
+							min={dayjs().format('YYYY-MM-DD')}
+							max={dayjs().add(1, 'M').format('YYYY-MM-DD')}
+							class="px-3 py-2 rounded-md border border-zinc-300"
+						/>
+						<input
+							type="date"
+							min={dayjs().add(1, 'd').format('YYYY-MM-DD')}
+							max={dayjs().add(2, 'M').format('YYYY-MM-DD')}
+							class="px-3 py-2 rounded-md border border-zinc-300"
+						/>
+					</div>
+					<!-- выбор количества -->
 					<div class="items-center flex flex-row">
 						<input
 							min="1"
@@ -44,6 +75,7 @@
 							type="number"
 						/>
 					</div>
+					<!-- кнопка удалить -->
 					<div class="flex flex-row gap-4 items-center">
 						<button on:click={() => removeFromCart(product)}>
 							<svg
@@ -65,7 +97,7 @@
 		>
 			<p class="text-xl font-bold">К оплате</p>
 
-			<p>{$cart.reduce((total, el) => total + el.price * el.count, 0)} р. / сут</p>
+			<p>{$cart.reduce((total, el) => total + (el.price - el.discount) * el.count, 0)} р.</p>
 			<button class="btn-main w-full" disabled={$cart.length === 0}> Заказать </button>
 		</div>
 	</div>
