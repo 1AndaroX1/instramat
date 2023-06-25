@@ -2,6 +2,7 @@
 	import '../styles.css';
 	import { fade, fly } from 'svelte/transition';
 	import { cart } from '../cartStore';
+	import ProductPrice from '$lib/ProductPrice.svelte';
 	export let data;
 
 	let y;
@@ -28,6 +29,7 @@
 </script>
 
 <svelte:window bind:scrollY={y} />
+
 <!-- анимация блока контактов -->
 <div
 	class="bg-zinc-400 w-full uppercase will-change-transform opacity-none"
@@ -46,6 +48,7 @@
 
 <header class="sticky h-fit top-0">
 	<nav>
+		<!-- нав бар -->
 		<div class="flex flex-row container mx-auto px-4 gap-4 py-2 items-center bg-white">
 			<a href="/">
 				<img src="../picture/Logo.svg" alt="instramat.by" class="min-w-full w-64" />
@@ -63,7 +66,6 @@
 			</button>
 
 			<!-- Поиск -->
-
 			<form action="/catalog" class="border rounded-full relative flex items-center w-full">
 				<input
 					type="search"
@@ -80,6 +82,8 @@
 					</svg></button
 				>
 			</form>
+
+			<!-- Корзина -->
 			<button
 				class="font-semibold flex flex-row items-center gap-2 bg-main text-zinc-50 rounded-full px-8 cursor-pointer py-4"
 				on:click={cartClick}
@@ -97,10 +101,11 @@
 
 	<!-- функция каталога -->
 	{#if catalogMenuVisible}
-		<div class=" bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
+		<div class="bg-white h-60 w-screen absolute" in:fly={{ x: -200, duration: 1000 }} out:fade>
 			<div class="container flex flex-row mx-auto px-4 h-full">
 				<!-- категории -->
 				<div class="flex flex-col border-r-2 h-full pr-2 gap-2 w-40">
+					<a href="/catalog" class=" font-semibold text-lg">Все товары</a>
 					{#each data.categories as category}
 						<a
 							href="/catalog?category={category.slug}"
@@ -148,11 +153,11 @@
 	<!-- функция корзины -->
 	{#if cartFormVisible}
 		<div
-			class="h-96 w-screen absolute right-0 bg pointer-events-none"
+			class="h-96 w-screen absolute right-0 bg pointer-events-none z-50"
 			in:fly={{ x: 200, duration: 1000 }}
 			out:fade
 		>
-			<div class="container justify-end flex flex-row mx-auto px-4 h-full">
+			<div class="justify-end flex flex-row mx-auto px-4 h-full">
 				<div
 					class="flex flex-col h-full gap-4 bg-white p-6 rounded-lg shadow-lg ring-1 ring-zinc-200 w-96 overflow-auto pointer-events-auto"
 				>
@@ -178,20 +183,12 @@
 
 							<div class="flex flex-col gap-1">
 								<p class="font-semibold">{product.name}</p>
-								<div class="text-lg">
-									{#if product.discount > 0}
-										<span class=" font-semibold text-rose-600">
-											{product.price - product.discount}
-										</span>
-										<span class="line-through text-zinc-500 text-base">
-											{product.price}
-										</span>
-									{:else}
-										<span>
-											{product.price}
-										</span>
-									{/if}
-									<span>{product.isRentable ? 'р. / сут' : 'р.'}</span>
+								<div>
+									<ProductPrice
+										price={product.price}
+										discount={product.discount}
+										isRentable={product.isRentable}
+									/>
 								</div>
 							</div>
 						</div>

@@ -3,6 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { cart } from '../../cartStore';
 	import dayjs from 'dayjs';
+	import ProductPrice from '$lib/ProductPrice.svelte';
 
 	let cartConfirmForm = false;
 
@@ -34,20 +35,12 @@
 
 					<div class="flex flex-col gap-1 w-full">
 						<p class="font-semibold">{product.name}</p>
-						<div class="text-2xl">
-							{#if product.discount > 0}
-								<span class=" font-semibold text-rose-600">
-									{product.price - product.discount}
-								</span>
-								<span class="line-through text-zinc-500 text-xl">
-									{product.price}
-								</span>
-							{:else}
-								<span>
-									{product.price}
-								</span>
-							{/if}
-							<span>{product.isRentable ? 'р. / сут' : 'р.'}</span>
+						<div>
+							<ProductPrice
+								price={product.price}
+								discount={product.discount}
+								isRentable={product.isRentable}
+							/>
 						</div>
 					</div>
 					<!-- выбор даты -->
