@@ -28,6 +28,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sapphire/shapeshift": "^3.9.2",
 		"dayjs": "^1.11.7",
 		"fuse.js": "^6.6.2",
 		"meilisearch": "^0.32.4",
